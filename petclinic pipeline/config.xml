@@ -1,0 +1,66 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.36">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <hudson.triggers.SCMTrigger>
+          <spec>* * * * *</spec>
+          <ignorePostCommitHooks>false</ignorePostCommitHooks>
+        </hudson.triggers.SCMTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.78">
+    <script>node {
+    notify(&apos;Started&apos;)
+    try{
+        stage &apos;checkout&apos;
+        git &apos;https://github.com/Neveen-E/jenkins2-course-spring-petclinic.git&apos;
+        
+    
+            
+        stage &apos;compile, test, package&apos;
+        bat &apos;mvn clean verify&apos;
+        
+  
+        
+    } catch (err){
+        notify(&quot;Error ${err}&quot;)
+        currentBuild.result = &apos;FAILURE&apos;
+    }
+    
+     stage &apos;archival&apos;
+        publishHTML([allowMissing: true, 
+        alwaysLinkToLastBuild: false, 
+        keepAll: true, 
+        reportDir: &apos;target/site/jacoco/&apos;, 
+        reportFiles: &apos;index.html&apos;, 
+        reportName: &apos;Code Coverage&apos;, 
+        reportTitles: &apos;&apos;])
+        step([$class: &apos;JUnitResultArchiver&apos;, testResults: &apos;target/surefire-reports/TEST-*.xml&apos;])
+        archiveArtifacts &quot;target/*.?ar&quot;
+      
+    
+
+}
+
+def notify(status){
+    emailext (
+      to: &quot;me.veena07@gmail.com&quot;,
+      subject: &quot;${status}: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;&quot;,
+      body: &quot;&quot;&quot;&lt;p&gt;${status}: Job &apos;${env.JOB_NAME} [${env.BUILD_NUMBER}]&apos;:&lt;/p&gt;
+        &lt;p&gt;Check console output at &lt;a href=&apos;${env.BUILD_URL}&apos;&gt;${env.JOB_NAME} [${env.BUILD_NUMBER}]&lt;/a&gt;&lt;/p&gt;&quot;&quot;&quot;,
+    )
+}
+
+
+
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

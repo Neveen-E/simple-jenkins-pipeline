@@ -1,0 +1,10 @@
+Started on Jan 17, 2020 5:18:00 PM
+Using strategy: Default
+[poll] Last Built Revision: Revision 12d272fe9391a532e7ce84a160a1fbf2a43d363d (refs/remotes/origin/master)
+No credentials specified
+ > D:\Program Files\Git\bin\git.exe --version # timeout=10
+ > D:\Program Files\Git\bin\git.exe ls-remote -h -- https://github.com/Neveen-E/jenkins2-course-spring-petclinic.git # timeout=10
+Found 6 remote heads on https://github.com/Neveen-E/jenkins2-course-spring-petclinic.git
+[poll] Latest remote head revision on refs/heads/master is: 12d272fe9391a532e7ce84a160a1fbf2a43d363d - already built by 6
+Done. Took 0.59 sec
+No changes

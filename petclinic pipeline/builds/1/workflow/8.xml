@@ -1,0 +1,31 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<Tag plugin="workflow-support@3.3">
+  <node class="cps.n.StepAtomNode" plugin="workflow-cps@2.78">
+    <parentIds>
+      <string>7</string>
+    </parentIds>
+    <id>8</id>
+    <descriptorId>org.jenkinsci.plugins.workflow.support.steps.StageStep</descriptorId>
+  </node>
+  <actions>
+    <cps.a.ArgumentsActionImpl plugin="workflow-cps@2.78">
+      <arguments>
+        <entry>
+          <string>name</string>
+          <string>compile, test, package</string>
+        </entry>
+      </arguments>
+      <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
+    </cps.a.ArgumentsActionImpl>
+    <wf.a.TimingAction plugin="workflow-api@2.38">
+      <startTime>1579106293806</startTime>
+    </wf.a.TimingAction>
+    <s.a.LogStorageAction/>
+    <wf.a.LabelAction plugin="workflow-api@2.38">
+      <displayName>compile, test, package</displayName>
+    </wf.a.LabelAction>
+    <org.jenkinsci.plugins.workflow.support.steps.StageStepExecution_-StageActionImpl plugin="pipeline-stage-step@2.3">
+      <stageName>compile, test, package</stageName>
+    </org.jenkinsci.plugins.workflow.support.steps.StageStepExecution_-StageActionImpl>
+  </actions>
+</Tag>
